@@ -1,0 +1,30 @@
+@model tallermigrado.Dtos.LoginEmpleadoDto
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<div class="prod-page" style="max-width: 420px; margin: 40px auto;">
+    <h1>Iniciar sesión</h1>
+
+    @if (TempData["Mensaje"] is string mensaje)
+    {
+        <div class="alert alert-success">@mensaje</div>
+    }
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form asp-action="Login" method="post">
+        <div class="mb-3">
+            <label asp-for="UserName" class="form-label"></label>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn-prod-primary">Entrar</button>
+        <a asp-action="Register" class="btn-prod-outline">Crear cuenta</a>
+    </form>
+</div>

@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="prod-page">
+    <h1 class="prod-title">Panel de Confección &amp; Planta</h1>
+    <p class="prod-subtitle">Bienvenido al panel central de TALLER VP.</p>
+
+    <h2 class="prod-subtitle mt-4">Acceso rápido a módulos</h2>
+    <div class="row row-cols-2 row-cols-md-4 g-3 mt-1">
+        <div class="col"><a class="acceso-modulo" asp-controller="Produccion" asp-action="Index">Producción<small>Registros y fichas</small></a></div>
+        <div class="col"><a class="acceso-modulo" asp-controller="Prendas" asp-action="Index">Prendas<small>Catálogo de prendas</small></a></div>
+        <div class="col"><a class="acceso-modulo" asp-controller="Empresas" asp-action="Index">Empresas<small>Clientes y talleres</small></a></div>
+        <div class="col"><a class="acceso-modulo" asp-controller="Colores" asp-action="Index">Colores<small>Paleta de colores</small></a></div>
+        <div class="col"><a class="acceso-modulo" asp-controller="Talles" asp-action="Index">Talles<small>Medidas disponibles</small></a></div>
+        <div class="col"><a class="acceso-modulo" asp-controller="Ficha" asp-action="Index">Fichas<small>Órdenes de confección</small></a></div>
+        <div class="col"><a class="acceso-modulo" asp-controller="Operaciones" asp-action="Index">Operaciones<small>Tareas de producción</small></a></div>
+        <div class="col"><a class="acceso-modulo" asp-controller="OperacionesEmpresa" asp-action="Index">Precios<small>Costos por operación</small></a></div>
+    </div>
+</div>

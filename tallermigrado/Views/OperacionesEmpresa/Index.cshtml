@@ -1,0 +1,45 @@
+@model List<tallermigrado.Models.OperacionesEmpresa>
+@{
+    ViewData["Title"] = "Precios por operación";
+}
+
+<div class="prod-page">
+    <div class="prod-header">
+        <div>
+            <h1>Precios por operación</h1>
+            <p class="text-secundario">Precio de cada operación según la empresa y la prenda.</p>
+        </div>
+        <a asp-action="Crear" class="btn-prod-primary">Nuevo precio</a>
+    </div>
+
+    @if (TempData["Mensaje"] is string mensaje)
+    {
+        <div class="alert alert-success">@mensaje</div>
+    }
+
+    <div class="prod-tabla">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Operación</th>
+                    <th>Empresa</th>
+                    <th>Prenda</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var registro in Model)
+                {
+                    <tr>
+                        <td>@registro.Id</td>
+                        <td>@registro.Operaciones?.NombreOperacion</td>
+                        <td>@registro.Empresas?.NombreEmpresa</td>
+                        <td>@registro.prendas?.ModeloPrenda</td>
+                        <td>@registro.precio.ToString("N2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

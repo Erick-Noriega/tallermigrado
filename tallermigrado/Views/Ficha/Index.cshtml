@@ -1,0 +1,98 @@
+@model List<tallermigrado.Dtos.ListarFichaDto>
+@{
+    ViewData["Title"] = "Fichas";
+}
+
+<div class="prod-page">
+    <div class="prod-header">
+        <div>
+            <h1>Fichas</h1>
+            <p class="text-secundario">Listado de fichas de producción.</p>
+        </div>
+        <a asp-action="Crear" class="btn-prod-primary">Nueva ficha</a>
+    </div>
+
+    @if (TempData["Mensaje"] is string mensaje)
+    {
+        <div class="alert alert-success">@mensaje</div>
+    }
+
+    <div class="prod-tabla">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Prenda</th>
+                    <th>Talle</th>
+                    <th>Color</th>
+                    <th>Empresa</th>
+                    <th>Corte</th>
+                    <th>Cantidad</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var registro in Model)
+                {
+                    <tr>
+                        <td>@registro.Id</td>
+                        <td>@registro.ModeloPrenda</td>
+                        <td>@registro.Talle</td>
+                        <td>@registro.Color</td>
+                        <td>@registro.Empresa</td>
+                        <td>@registro.NumeroDeCorte</td>
+                        <td>@registro.Cantidad</td>
+                        <td>@registro.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <button type="button" class="btn-prod-outline btn-ver-ficha"
+                                    data-imagen="@registro.ImagenUrl"
+                                    data-titulo="Ficha #@registro.Id - @registro.ModeloPrenda">
+                                Ver ficha
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="prod-tabla mt-3 d-none" id="panelFicha">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 id="panelFichaTitulo" class="mb-0"></h5>
+            <button type="button" class="btn-close btn-close-white" id="cerrarPanelFicha" aria-label="Cerrar"></button>
+        </div>
+        style="max-height: 220px;"
+        <p id="panelFichaSinImagen" class="text-secundario d-none">Esta ficha no tiene imagen.</p>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const panelFicha = document.getElementById('panelFicha');
+        const panelImagen = document.getElementById('panelFichaImagen');
+        const panelTitulo = document.getElementById('panelFichaTitulo');
+        const panelSinImagen = document.getElementById('panelFichaSinImagen');
+
+        document.querySelectorAll('.btn-ver-ficha').forEach(function (boton) {
+            boton.addEventListener('click', function () {
+                const url = this.dataset.imagen;
+                panelTitulo.textContent = this.dataset.titulo;
+                if (url) {
+                    panelImagen.src = url;
+                    panelImagen.classList.remove('d-none');
+                    panelSinImagen.classList.add('d-none');
+                } else {
+                    panelImagen.removeAttribute('src');
+                    panelImagen.classList.add('d-none');
+                    panelSinImagen.classList.remove('d-none');
+                }
+                panelFicha.classList.remove('d-none');
+            });
+        });
+
+        document.getElementById('cerrarPanelFicha').addEventListener('click', function () {
+            panelFicha.classList.add('d-none');
+        });
+    </script>
+}

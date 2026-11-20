@@ -1,0 +1,62 @@
+@model tallermigrado.Models.PagosEmpleado
+
+<div class="prod-page">
+    <div class="prod-header">
+        <div>
+            <h1 class="prod-title">Pago de @Model.Mes</h1>
+            <p class="prod-subtitle">Empleado: @Model.empleados?.nombre</p>
+            <p class="prod-subtitle">Total: @Model.total.ToString("N2")</p>
+        </div>
+        <div class="prod-actions">
+            @if (User.IsInRole("Admin") && !Model.Pagado)
+            {
+                <form asp-action="MarcarPagado" asp-route-id="@Model.Id" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-prod-primary">Marcar como pagado</button>
+                </form>
+            }
+            <a class="btn btn-prod-outline" asp-action="Index">Volver</a>
+        </div>
+    </div>
+
+    @if (TempData["Mensaje"] is string mensaje)
+    {
+        <div class="prod-alert">@mensaje</div>
+    }
+
+    <div class="prod-tabla-wrapper">
+        <table class="prod-tabla">
+            <thead>
+                <tr>
+                    <th>Prenda</th>
+                    <th>Empresa</th>
+                    Operación
+                    <th>Color</th>
+                    <th>Talle</th>
+                    <th>Corte</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model.Registros)
+                {
+                    <tr>
+                        <td>@r.Prendas?.ModeloPrenda</td>
+                        <td>@r.Empresas?.NombreEmpresa</td>
+                        <td>@r.Operaciones?.NombreOperacion</td>
+                        <td>@r.color?.Nombre</td>
+                        <td>@r.talle?.DescripcionTalle</td>
+                        <td>@r.corte</td>
+                        <td>@r.CantidadDePrendas</td>
+                        <td>@(r.precio.HasValue ? r.precio.Value.ToString("N2") : "Pendiente")</td>
+                        <td>@((r.CantidadDePrendas * (r.precio ?? 0)).ToString("N2"))</td>
+                        <td>@r.Fecha.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

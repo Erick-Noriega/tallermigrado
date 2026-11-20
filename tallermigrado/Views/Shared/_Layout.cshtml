@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - tallermigrado</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/tallermigrado.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="app-nav">
+            <a class="app-brand" asp-controller="Home" asp-action="Index">TALLER VP</a>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <div class="app-menu">
+                    <div class="dropdown">
+                        <button class="app-link btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Producción</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Produccion" asp-action="Index">Listar</a></li>
+                            <li><a class="dropdown-item" asp-controller="Produccion" asp-action="Registrar">Registrar</a></li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" asp-controller="Pagos" asp-action="Index">Pagos</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="app-link btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Prendas</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Prendas" asp-action="Index">Listar</a></li>
+                            <li><a class="dropdown-item" asp-controller="Prendas" asp-action="Crear">Crear</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="app-link btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Empresas</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Empresas" asp-action="Index">Listar</a></li>
+                            <li><a class="dropdown-item" asp-controller="Empresas" asp-action="Crear">Crear</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="app-link btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Colores</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Colores" asp-action="Index">Listar</a></li>
+                            <li><a class="dropdown-item" asp-controller="Colores" asp-action="Crear">Crear</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="app-link btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Talles</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Talles" asp-action="Index">Listar</a></li>
+                            <li><a class="dropdown-item" asp-controller="Talles" asp-action="Crear">Crear</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="app-link btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Fichas</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Ficha" asp-action="Index">Listar</a></li>
+                            <li><a class="dropdown-item" asp-controller="Ficha" asp-action="Crear">Crear</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="app-link btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Operaciones</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Operaciones" asp-action="Index">Listar</a></li>
+                            <li><a class="dropdown-item" asp-controller="Operaciones" asp-action="Crear">Crear</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="app-link btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Precios</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="OperacionesEmpresa" asp-action="Index">Listar</a></li>
+                            <li><a class="dropdown-item" asp-controller="OperacionesEmpresa" asp-action="Crear">Crear</a></li>
+                        </ul>
+                    </div>
+                    <form class="d-inline" method="post" asp-controller="Account" asp-action="Logout">
+                        <button type="submit" class="app-link btn btn-link p-0">Cerrar sesión</button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <a class="app-link" asp-controller="Account" asp-action="Register">Registrarse</a>
+                <a class="app-link" asp-controller="Account" asp-action="Login">Iniciar sesión</a>
+            }
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - tallermigrado
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

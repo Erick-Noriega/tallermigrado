@@ -1,0 +1,39 @@
+@model List<tallermigrado.Models.Empresas>
+@{
+    ViewData["Title"] = "Empresas";
+}
+
+<div class="prod-page">
+    <div class="prod-header">
+        <div>
+            <h1>Empresas</h1>
+            <p class="text-secundario">Empresas clientes registradas en el taller.</p>
+        </div>
+        <a asp-action="Crear" class="btn-prod-primary">Nueva empresa</a>
+    </div>
+
+    @if (TempData["Mensaje"] is string mensaje)
+    {
+        <div class="alert alert-success">@mensaje</div>
+    }
+
+    <div class="prod-tabla">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var empresa in Model)
+                {
+                    <tr>
+                        <td>@empresa.Id</td>
+                        <td>@empresa.NombreEmpresa</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

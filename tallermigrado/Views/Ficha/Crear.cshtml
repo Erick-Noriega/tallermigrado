@@ -1,0 +1,80 @@
+@model tallermigrado.Dtos.CrearFichaDto
+@{
+    ViewData["Title"] = "Nueva ficha";
+}
+
+<div class="prod-page" style="max-width: 480px; margin: 40px auto;">
+    <h1>Nueva ficha</h1>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form asp-action="Crear" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label asp-for="PrendasId" class="form-label">Prenda</label>
+            <select asp-for="PrendasId" asp-items="ViewBag.Prendas" class="form-select">
+                <option value="">Seleccione una prenda</option>
+            </select>
+            <span asp-validation-for="PrendasId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TalleId" class="form-label">Talle</label>
+            <select asp-for="TalleId" asp-items="ViewBag.Talles" class="form-select">
+                <option value="">Seleccione un talle</option>
+            </select>
+            <span asp-validation-for="TalleId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ColorId" class="form-label">Color</label>
+            <select asp-for="ColorId" asp-items="ViewBag.Colores" class="form-select">
+                <option value="">Seleccione un color</option>
+            </select>
+            <span asp-validation-for="ColorId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="EmpresasId" class="form-label">Empresa</label>
+            <select asp-for="EmpresasId" asp-items="ViewBag.Empresas" class="form-select">
+                <option value="">Seleccione una empresa</option>
+            </select>
+            <span asp-validation-for="EmpresasId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NumeroDeCorte" class="form-label">Corte</label>
+            <input asp-for="NumeroDeCorte" type="text" class="form-control" />
+            <span asp-validation-for="NumeroDeCorte" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Cantidad" class="form-label">Cantidad</label>
+            <input asp-for="Cantidad" type="text" class="form-control" />
+            <span asp-validation-for="Cantidad" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ImagenArchivo" class="form-label">Imagen</label>
+            <input asp-for="ImagenArchivo" type="file" accept="image/*" class="form-control" id="imagenArchivo" />
+            <span asp-validation-for="ImagenArchivo" class="text-danger"></span>
+            <img id="previewImagen" alt="Vista previa" class="img-fluid mt-2 d-none" style="max-height: 220px;" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Fecha" class="form-label">Fecha</label>
+            <input asp-for="Fecha" type="date" class="form-control" />
+            <span asp-validation-for="Fecha" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn-prod-primary">Guardar</button>
+        <a asp-action="Index" class="btn-prod-outline">Volver</a>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('imagenArchivo').addEventListener('change', function (e) {
+            const preview = document.getElementById('previewImagen');
+            const archivo = e.target.files[0];
+            if (archivo) {
+                preview.src = URL.createObjectURL(archivo);
+                preview.classList.remove('d-none');
+            } else {
+                preview.removeAttribute('src');
+                preview.classList.add('d-none');
+            }
+        });
+    </script>
+}

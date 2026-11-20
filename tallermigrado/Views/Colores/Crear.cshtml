@@ -1,0 +1,20 @@
+@model tallermigrado.Dtos.CrearColorDto
+@{
+    ViewData["Title"] = "Nuevo color";
+}
+
+<div class="prod-page" style="max-width: 420px; margin: 40px auto;">
+    <h1>Nuevo color</h1>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form asp-action="Crear" method="post">
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label">Color</label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn-prod-primary">Guardar</button>
+        <a asp-action="Index" class="btn-prod-outline">Volver</a>
+    </form>
+</div>

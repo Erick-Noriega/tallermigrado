@@ -1,0 +1,20 @@
+@model tallermigrado.Dtos.CrearEmpresaDto
+@{
+    ViewData["Title"] = "Nueva empresa";
+}
+
+<div class="prod-page" style="max-width: 420px; margin: 40px auto;">
+    <h1>Nueva empresa</h1>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form asp-action="Crear" method="post">
+        <div class="mb-3">
+            <label asp-for="NombreEmpresa" class="form-label">Nombre</label>
+            <input asp-for="NombreEmpresa" class="form-control" />
+            <span asp-validation-for="NombreEmpresa" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn-prod-primary">Guardar</button>
+        <a asp-action="Index" class="btn-prod-outline">Volver</a>
+    </form>
+</div>

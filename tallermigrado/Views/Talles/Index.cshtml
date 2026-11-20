@@ -1,0 +1,39 @@
+@model List<tallermigrado.Models.Talles>
+@{
+    ViewData["Title"] = "Talles";
+}
+
+<div class="prod-page">
+    <div class="prod-header">
+        <div>
+            <h1>Talles</h1>
+            <p class="text-secundario">Listado de talles registrados.</p>
+        </div>
+        <a asp-action="Crear" class="btn-prod-primary">Nuevo talle</a>
+    </div>
+
+    @if (TempData["Mensaje"] is string mensaje)
+    {
+        <div class="alert alert-success">@mensaje</div>
+    }
+
+    <div class="prod-tabla">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Talle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var registro in Model)
+                {
+                    <tr>
+                        <td>@registro.Id</td>
+                        <td>@registro.DescripcionTalle</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+@model tallermigrado.Dtos.CrearTalleDto
+@{
+    ViewData["Title"] = "Nuevo talle";
+}
+
+<div class="prod-page" style="max-width: 420px; margin: 40px auto;">
+    <h1>Nuevo talle</h1>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form asp-action="Crear" method="post">
+        <div class="mb-3">
+            <label asp-for="DescripcionTalle" class="form-label">Talle</label>
+            <input asp-for="DescripcionTalle" class="form-control" />
+            <span asp-validation-for="DescripcionTalle" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn-prod-primary">Guardar</button>
+        <a asp-action="Index" class="btn-prod-outline">Volver</a>
+    </form>
+</div>

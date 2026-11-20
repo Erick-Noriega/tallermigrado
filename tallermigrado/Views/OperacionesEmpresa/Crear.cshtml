@@ -1,0 +1,41 @@
+@model tallermigrado.Dtos.CrearOperacionEmpresaDto
+@{
+    ViewData["Title"] = "Nuevo precio";
+}
+
+<div class="prod-page" style="max-width: 420px; margin: 40px auto;">
+    <h1>Nuevo precio por operación</h1>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form asp-action="Crear" method="post">
+        <div class="mb-3">
+            <label asp-for="OperacionesId" class="form-label">Operación</label>
+            <select asp-for="OperacionesId" asp-items="ViewBag.Operaciones" class="form-select">
+                <option value="">Seleccione una operación</option>
+            </select>
+            <span asp-validation-for="OperacionesId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="EmpresasId" class="form-label">Empresa</label>
+            <select asp-for="EmpresasId" asp-items="ViewBag.Empresas" class="form-select">
+                <option value="">Seleccione una empresa</option>
+            </select>
+            <span asp-validation-for="EmpresasId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="PrendasId" class="form-label">Prenda</label>
+            <select asp-for="PrendasId" asp-items="ViewBag.Prendas" class="form-select">
+                <option value="">Seleccione una prenda</option>
+            </select>
+            <span asp-validation-for="PrendasId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Precio" class="form-label"></label>
+            <input asp-for="Precio" type="number" step="0.01" min="0" class="form-control" />
+            <span asp-validation-for="Precio" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn-prod-primary">Guardar</button>
+        <a asp-action="Index" class="btn-prod-outline">Volver</a>
+    </form>
+</div>

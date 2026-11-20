@@ -1,0 +1,95 @@
+@model List<tallermigrado.Dtos.ProduccionPorEmpleadoDto>
+
+<div class="prod-page">
+    <div class="prod-header">
+        <div>
+            <h1 class="prod-title">Fichas de Producción</h1>
+            <p class="prod-subtitle">Destino de órdenes de confección. Consulte los detalles de corte y las especificaciones técnicas.</p>
+        </div>
+        <div class="prod-actions">
+            <a class="btn btn-prod-outline" asp-action="Registrar">Nueva Ficha</a>
+        </div>
+    </div>
+
+    @if (TempData["Mensaje"] is string mensaje)
+    {
+        <div class="prod-alert">@mensaje</div>
+    }
+
+    @if (TempData["Error"] is string error)
+    {
+        <div class="prod-alert">@error</div>
+    }
+
+    @if (User.IsInRole("Admin"))
+    {
+    <form asp-controller="Pagos" asp-action="Crear" method="post" id="formPagos">
+    @Html.AntiForgeryToken()
+    <div class="prod-header">
+        <div>
+            <label for="mesPago" class="prod-subtitle">Mes del pago</label>
+            <input type="text" id="mesPago" name="Mes" class="form-control" required />
+        </div>
+        <div class="prod-actions">
+            <button type="submit" class="btn btn-prod-outline" id="btnCalcular" disabled>Calcular</button>
+        </div>
+    </div>
+    </form>
+    }
+
+    @foreach (var empleado in Model)
+    {
+        <h2 class="prod-subtitle">@empleado.NombreEmpleado</h2>
+        <div class="prod-tabla-wrapper">
+            <table class="prod-tabla">
+                <thead>
+                    <tr>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <th></th>
+                        }
+                        <th>Prenda</th>
+                        <th>Empresa</th>
+                        <th>Operación</th>
+                        <th>Color</th>
+                        <th>Talle</th>
+                        <th>Corte</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in empleado.Registros)
+                    {
+                        <tr>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <td><input type="checkbox" name="ProduccionIds" value="@r.Id" class="chk-produccion" /></td>
+                            }
+                            <td>@r.Prenda</td>
+                            <td>@r.Empresa</td>
+                            <td>@r.Operacion</td>
+                            <td>@r.Color</td>
+                            <td>@r.Talle</td>
+                            <td>@r.Corte</td>
+                            <td>@r.Cantidad</td>
+                            <td>@(r.Precio.HasValue ? r.Precio.Value.ToString("N2") : "Pendiente")</td>
+                            <td>@r.Fecha.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<script>
+    (function () {
+        const boton = document.getElementById('btnCalcular');
+        const checks = document.querySelectorAll('.chk-produccion');
+        const actualizar = () => boton.disabled = !Array.from(checks).some(c => c.checked);
+        checks.forEach(c => c.addEventListener('change', actualizar));
+    })();
+</script>
+

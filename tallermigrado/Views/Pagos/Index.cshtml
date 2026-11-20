@@ -1,0 +1,81 @@
+@model List<tallermigrado.Models.PagosEmpleado>
+
+<div class="prod-page">
+    <div class="prod-header">
+        <div>
+            <h1 class="prod-title">Pagos</h1>
+            <p class="prod-subtitle">Totales de producción por mes.</p>
+        </div>
+    </div>
+
+    @if (TempData["Mensaje"] is string mensaje)
+    {
+        <div class="prod-alert">@mensaje</div>
+    }
+
+    <form method="get" class="prod-header">
+        <div>
+            <label for="filtroEmpleado" class="prod-subtitle">Empleado</label>
+            <select id="filtroEmpleado" name="empleadoId" class="form-select" asp-items="ViewBag.Empleados">
+                <option value="">-- Todos --</option>
+            </select>
+        </div>
+        <div>
+            <label for="filtroMes" class="prod-subtitle">Mes</label>
+            <select id="filtroMes" name="mes" class="form-select" asp-items="ViewBag.Meses">
+                <option value="">-- Todos --</option>
+            </select>
+        </div>
+        <div class="prod-actions">
+            <button type="submit" class="btn btn-prod-outline">Filtrar</button>
+            <a class="btn btn-prod-outline" asp-action="Index">Limpiar</a>
+        </div>
+    </form>
+
+    @if (!Model.Any())
+    {
+        <p>No hay pagos registrados.</p>
+    }
+    else
+    {
+        <div class="prod-tabla-wrapper">
+            <table class="prod-tabla">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Total</th>
+                        <th>Pagado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pago in Model)
+                    {
+                        <tr>
+                            <td>@pago.Mes</td>
+                            <td>@pago.total.ToString("N2")</td>
+                            <td>
+                                @if (pago.Pagado)
+                                {
+                                    <span class="text-success fw-bold fs-4">PAGADO</span>
+                                    <span class="text-secundario ms-2">Empleado: @(pago.empleados?.nombre ?? pago.empleados?.UserName)</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-prod-outline" asp-action="Detalle" asp-route-id="@pago.Id">Ver detalle</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4">
+
+        </div>
+    }
+</div>

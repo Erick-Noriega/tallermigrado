@@ -1,0 +1,324 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+:root {
+  --negro-fondo: #0b0b0c;
+  --negro-panel: #141416;
+  --negro-borde: #26262a;
+  --texto-principal: #f2f2f2;
+  --texto-secundario: #8a8a93;
+  --acento: #3b82f6;
+  --verde: #22c55e;
+}
+
+body {
+  background-color: var(--negro-fondo);
+  color: var(--texto-principal);
+}
+
+.app-nav {
+  background-color: var(--negro-fondo);
+  border-bottom: 1px solid var(--negro-borde);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.app-nav .app-brand {
+  font-weight: 700;
+  color: var(--texto-principal);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.app-nav .app-link {
+  color: var(--texto-secundario);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.app-nav .app-link.activo,
+.app-nav .app-link:hover {
+  color: var(--texto-principal);
+}
+
+.app-menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.app-menu .dropdown-toggle {
+  color: var(--texto-secundario);
+  border: 1px solid var(--negro-borde);
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.app-menu .dropdown-toggle:hover,
+.app-menu .dropdown-toggle:focus {
+  color: var(--texto-principal);
+  border-color: var(--acento);
+  box-shadow: none;
+}
+
+.app-menu .dropdown-menu {
+  background-color: var(--negro-panel);
+  border: 1px solid var(--negro-borde);
+}
+
+.app-menu .dropdown-item {
+  color: var(--texto-secundario);
+}
+
+.app-menu .dropdown-item:hover,
+.app-menu .dropdown-item:focus {
+  background-color: var(--negro-borde);
+  color: var(--texto-principal);
+}
+
+.app-menu .dropdown-divider {
+  border-color: var(--negro-borde);
+}
+
+.acceso-modulo {
+  background-color: var(--negro-panel);
+  border: 1px solid var(--negro-borde);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  color: var(--texto-principal);
+  text-decoration: none;
+  display: block;
+}
+
+.acceso-modulo:hover {
+  border-color: var(--acento);
+  color: var(--texto-principal);
+}
+
+.acceso-modulo small {
+  display: block;
+  color: var(--texto-secundario);
+}
+
+.prod-page {
+  padding: 1.5rem;
+}
+
+.prod-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.prod-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.prod-subtitle {
+  color: var(--texto-secundario);
+  margin: 0.25rem 0 0;
+}
+
+.prod-filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  background-color: var(--negro-panel);
+  border: 1px solid var(--negro-borde);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.prod-filtro label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--texto-secundario);
+  margin-bottom: 0.35rem;
+}
+
+.prod-input {
+  width: 100%;
+  background-color: var(--negro-fondo);
+  color: var(--texto-principal);
+  border: 1px solid var(--negro-borde);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+
+.prod-input:focus {
+  outline: none;
+  border-color: var(--acento);
+}
+
+.prod-ayuda {
+  color: var(--texto-secundario);
+}
+
+.prod-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.prod-tabla-wrapper {
+  background-color: var(--negro-panel);
+  border: 1px solid var(--negro-borde);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.prod-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.prod-tabla th {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--texto-secundario);
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--negro-borde);
+  text-align: left;
+}
+
+.prod-tabla td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--negro-borde);
+  font-size: 0.9rem;
+}
+
+.prod-badge,
+.prod-color {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  background-color: var(--negro-borde);
+  font-size: 0.8rem;
+}
+
+.prod-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  color: var(--texto-secundario);
+  font-size: 0.8rem;
+}
+
+.prod-total {
+  color: var(--verde);
+}
+
+.prod-preview {
+  background-color: var(--negro-panel);
+  border: 1px solid var(--negro-borde);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.prod-preview-title {
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+}
+
+.prod-preview-texto {
+  color: var(--texto-secundario);
+  font-size: 0.85rem;
+}
+
+.prod-alert {
+  background-color: rgba(34, 197, 94, 0.12);
+  color: var(--verde);
+  border: 1px solid var(--verde);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.prod-alert-error {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border: 1px solid #f87171;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.prod-form-acciones {
+  margin-top: 1.5rem;
+}
+
+.btn-prod-primary {
+  background-color: var(--acento);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.25rem;
+}
+
+.btn-prod-primary:disabled {
+  opacity: 0.4;
+}
+
+.btn-prod-outline {
+  background: transparent;
+  color: var(--texto-principal);
+  border: 1px solid var(--negro-borde);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+
+.btn-prod-sm {
+  background: transparent;
+  color: var(--texto-principal);
+  border: 1px solid var(--negro-borde);
+  border-radius: 6px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 991px) {
+  .prod-layout {
+    grid-template-columns: 1fr;
+  }
+}

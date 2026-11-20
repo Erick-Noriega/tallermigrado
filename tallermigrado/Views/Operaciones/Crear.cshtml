@@ -1,0 +1,27 @@
+@model tallermigrado.Dtos.CrearOperacionDto
+@{
+    ViewData["Title"] = "Nueva operación";
+}
+
+<div class="prod-page" style="max-width: 420px; margin: 40px auto;">
+    <h1>Nueva operación</h1>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <form asp-action="Crear" method="post">
+        <div class="mb-3">
+            <label asp-for="PrendasId" class="form-label">Prenda</label>
+            <select asp-for="PrendasId" asp-items="ViewBag.Prendas" class="form-select">
+                <option value="">-- Seleccione una prenda --</option>
+            </select>
+            <span asp-validation-for="PrendasId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NombreOperacion" class="form-label">Nombre</label>
+            <input asp-for="NombreOperacion" class="form-control" />
+            <span asp-validation-for="NombreOperacion" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn-prod-primary">Guardar</button>
+        <a asp-action="Index" class="btn-prod-outline">Volver</a>
+    </form>
+</div>

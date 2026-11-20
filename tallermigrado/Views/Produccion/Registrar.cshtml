@@ -1,0 +1,147 @@
+@model tallermigrado.Dtos.OpcionesProduccionDto
+
+<div class="prod-page">
+    <div class="prod-header">
+        <div>
+            <h1 class="prod-title">Registrar Producción</h1>
+            <p class="prod-subtitle">Seleccione solo combinaciones existentes en las fichas.</p>
+        </div>
+        <div class="prod-actions">
+            <a class="btn btn-prod-outline" asp-action="Index">Volver</a>
+        </div>
+    </div>
+
+    <div asp-validation-summary="All" class="prod-alert-error"></div>
+
+    <form asp-action="Registrar" method="post" class="prod-form" id="formProduccion">
+        @Html.AntiForgeryToken()
+        <div class="prod-filtros">
+            <div class="prod-filtro">
+                <label>Empleado</label>
+                <select name="EmpleadoId" id="selEmpleado" class="prod-input" required>
+                    <option value="">Seleccione...</option>
+                    @foreach (var e in Model.Empleados)
+                    {
+                        <option value="@e.Id">@e.Texto</option>
+                    }
+                </select>
+            </div>
+            <div class="prod-filtro">
+                <label>Modelo de prenda</label>
+                <select name="PrendasId" id="selPrenda" class="prod-input" required>
+                    <option value="">Seleccione...</option>
+                    @foreach (var p in Model.Prendas)
+                    {
+                        <option value="@p.Id">@p.Texto</option>
+                    }
+                </select>
+            </div>
+            <div class="prod-filtro">
+                <label>Empresa</label>
+                <select name="EmpresasId" id="selEmpresa" class="prod-input" required disabled>
+                    <option value="">Seleccione...</option>
+                </select>
+            </div>
+            <div class="prod-filtro">
+                <label>Color</label>
+                <select name="ColorId" id="selColor" class="prod-input" required disabled>
+                    <option value="">Seleccione...</option>
+                </select>
+            </div>
+            <div class="prod-filtro">
+                <label>Talle</label>
+                <select name="TalleId" id="selTalle" class="prod-input" required disabled>
+                    <option value="">Seleccione...</option>
+                </select>
+            </div>
+            <div class="prod-filtro">
+                <label>Corte</label>
+                <select name="Corte" id="selCorte" class="prod-input" required disabled>
+                    <option value="">Seleccione...</option>
+                </select>
+            </div>
+            <div class="prod-filtro">
+                <label>Operación</label>
+                <select name="OperacionId" id="selOperacion" class="prod-input" required disabled>
+                    <option value="">Seleccione...</option>
+                </select>
+            </div>
+            <div class="prod-filtro">
+                <label>Cantidad (Ficha)</label>
+                <input type="text" id="inputCantidad" class="prod-input" readonly />
+            </div>
+            <div class="prod-filtro">
+                <label>Precio (Operación)</label>
+                <input type="text" id="inputPrecio" class="prod-input" readonly />
+            </div>
+        </div>
+
+        <div class="prod-form-acciones">
+            <button type="submit" class="btn btn-prod-primary" id="btnRegistrar" disabled>Registrar producción</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            const urlOpciones = '@Url.Action("Opciones", "Produccion")';
+            const sel = {
+                prenda: document.getElementById('selPrenda'),
+                empresa: document.getElementById('selEmpresa'),
+                color: document.getElementById('selColor'),
+                talle: document.getElementById('selTalle'),
+                corte: document.getElementById('selCorte'),
+                operacion: document.getElementById('selOperacion')
+            };
+
+            function llenar(select, items, valorSeleccionado) {
+                select.innerHTML = '<option value="">Seleccione...</option>';
+                (items || []).forEach(i => {
+                    const opt = document.createElement('option');
+                    opt.value = i.id;
+                    opt.textContent = i.texto;
+                    select.appendChild(opt);
+                });
+                select.disabled = !(items && items.length);
+                if (valorSeleccionado) select.value = valorSeleccionado;
+            }
+
+            function resetear(desde) {
+                const orden = ['empresa', 'color', 'talle', 'corte', 'operacion'];
+                orden.slice(orden.indexOf(desde)).forEach(k => llenar(sel[k], []));
+                document.getElementById('btnRegistrar').disabled = true;
+            }
+
+            async function cargar() {
+                const params = new URLSearchParams({
+                    prendaId: sel.prenda.value,
+                    empresaId: sel.empresa.value,
+                    colorId: sel.color.value,
+                    talleId: sel.talle.value,
+                    corte: sel.corte.value,
+                    operacionId: sel.operacion.value
+                });
+                const res = await fetch(urlOpciones + '?' + params.toString());
+                const datos = await res.json();
+                llenar(sel.empresa, datos.empresas, sel.empresa.value);
+                llenar(sel.color, datos.colores, sel.color.value);
+                llenar(sel.talle, datos.talles, sel.talle.value);
+                llenar(sel.corte, datos.cortes.map(c => ({ id: c.texto, texto: c.texto })), sel.corte.value);
+                llenar(sel.operacion, datos.operaciones, sel.operacion.value);
+                document.getElementById('inputCantidad').value = datos.cantidad ?? '';
+                document.getElementById('inputPrecio').value = datos.precio ?? '';
+            }
+
+            sel.prenda.addEventListener('change', () => { resetear('empresa'); cargar(); });
+            sel.empresa.addEventListener('change', () => { resetear('color'); cargar(); });
+            sel.color.addEventListener('change', () => { resetear('talle'); cargar(); });
+            sel.talle.addEventListener('change', () => { resetear('corte'); cargar(); });
+            sel.corte.addEventListener('change', () => { resetear('operacion'); cargar(); });
+            sel.operacion.addEventListener('change', () => {
+                document.getElementById('btnRegistrar').disabled = !sel.operacion.value;
+                cargar();
+            });
+        })();
+    </script>
+}
